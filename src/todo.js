@@ -14,6 +14,10 @@ export function taskList(){
     let newTask = new Task(taskData.title, taskData.description, taskData.dueDate, taskData.priority, taskData.notes, taskData.id);
     myTasks.push(newTask);
   }
-  return {addTask, myTasks};
+
+  const removeTask = (id) => {
+    myTasks.splice(myTasks.findIndex(task => task.id === id),1);
+  }
+  return {addTask,removeTask, myTasks};
 };
 

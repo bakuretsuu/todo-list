@@ -8,3 +8,7 @@ export function getUserInput (){
 
     return {title, description, dueDate, priority, notes, id}
 }
+
+export function displayTask (){
+    
+}

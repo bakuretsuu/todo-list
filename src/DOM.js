@@ -1,14 +1,28 @@
-export function getUserInput (){
-    let title = document.getElementById('title').value;
-    let description = document.getElementById('description').value;
-    let dueDate = document.getElementById('dueDate').value;
-    let priority = document.getElementById('priority').checked;
-    let notes = document.getElementById('notes').value;
-    let id = crypto.randomUUID();
+import { getTasks, removeTask } from "./todo.js";
 
-    return {title, description, dueDate, priority, notes, id}
-}
+export function displayTask() {
+  const taskContainer = document.querySelector('.taskList');
+  taskContainer.innerHTML = '';
 
-export function displayTask (){
+  getTasks().forEach(task => {
+    const taskDiv = document.createElement('div');
+    taskDiv.classList.add('taskItem');
+
+    taskDiv.innerHTML = `
+      <h3>${task.title}</h3>
+      <p>${task.description}</p>
+      <p>Due: ${task.dueDate}</p>
+      <p>Priority: ${task.priority ? 'High' : 'Normal'}</p>
+      <p>Notes: ${task.notes}</p>
+      <button data-id="${task.id}" class="removeTask">Remove</button>
+    `;
+
     
+    taskDiv.querySelector('.removeTask').addEventListener('click', () => {
+      removeTask(task.id);
+      displayTask(); 
+    });
+
+    taskContainer.appendChild(taskDiv);
+  });
 }

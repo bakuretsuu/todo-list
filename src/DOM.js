@@ -4,7 +4,16 @@ export function displayTask() {
   const taskContainer = document.querySelector('.taskList');
   taskContainer.innerHTML = '';
 
-  getTasks().forEach(task => {
+  const sortedTasks = [...getTasks()].sort((a,b) => {
+    if(a.priority && !b.priority) return -1;
+    if(!a.priority && b.priority) return 1;
+
+    const dateA = new Date(a.dueDate);
+    const dateB = new Date(b.dueDate);
+    return dateA - dateB;
+  })
+
+  sortedTasks.forEach(task => {
     const taskDiv = document.createElement('div');
     taskDiv.classList.add('taskItem');
 

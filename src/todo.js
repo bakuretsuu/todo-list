@@ -1,3 +1,5 @@
+import { storeTasks, getTasks } from './storage.js';
+
 export function Task(title, description, dueDate, priority, notes, id) {
   this.title = title;
   this.description = description;
@@ -7,7 +9,7 @@ export function Task(title, description, dueDate, priority, notes, id) {
   this.id = id;
 }
 
-let myTasks = []; 
+let myTasks = getTasks();
 
 export function addTask(taskData) {
   let newTask = new Task(
@@ -19,12 +21,14 @@ export function addTask(taskData) {
     taskData.id
   );
   myTasks.push(newTask);
+  storeTasks(myTasks);
 }
 
 export function removeTask(id) {
   myTasks.splice(myTasks.findIndex(task => task.id === id), 1);
+  storeTasks(myTasks);
 }
 
-export function getTasks() {
+export function getTasksList() {
   return myTasks;
 }

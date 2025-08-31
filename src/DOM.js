@@ -1,4 +1,5 @@
-import { getTasks, removeTask, addTask } from "./todo.js";
+import { getTasks } from "./storage.js";  
+import { removeTask, addTask } from "./todo.js";
 
 export function displayTask() {
   const taskContainer = document.querySelector('.taskList');
